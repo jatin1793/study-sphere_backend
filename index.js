@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cloudinary = require("cloudinary").v2
 const storage = require("./middleware/multer.js");
-
+const PORT = process.env.PORT || 8080
 // db connection
 
 // cors
@@ -36,18 +36,9 @@ require("./models/mongoConnection.js").connectDB();
 
 app.use("/student", require("./routes/studentRoutes.js"));
 app.use("/instructor", require("./routes/instructorRoutes.js"));
- 
-// app.use((req,res,next)=>{
-//     res.setHeader("Access-Control-Allow-Origin","http://localhost:5173");
-//     res.header(
-//         "Access-Control-Allow-Headers",
-//         "Origin,X-Requested-With,Content-Type,Accept",
-//     );
-//     next();  
-// })  
           
 
 app.listen(
-    process.env.PORT,
-    console.log(`server running on port ${process.env.PORT}`)
+    PORT,
+    console.log(`server running on port ${PORT}`)
 );
