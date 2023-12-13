@@ -3,22 +3,56 @@ const Course = require("./courseModel.js")
 
 const Instructor = new mongoose.Schema(
 	{
-		token: { type:String, default:""},
+		token: { 
+			type:String, 
+			default:""
+		},
 
-		phone: { type:Number, required: true},
-		email: { type: String, required: true, unique: true },
-		name: { type: String, required: true },
-		password: { type: String, required: true },
-		profileimg: { type: String , default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5p57WV50h3MZCCDT1mT4anit4OodyaISlcQ&usqp=CAU"},
+		phone: { 
+			type:Number, 
+			required: [true, "Contact is required"],
+		},
 
-		qualification: {type: String, required: true },
-		experience: {type: String, required: true },
-		domain: {type: String, required: true },
+		email: { 
+			type: String,
+            unique: true,
+            required: [true, "Email is required"],
+		 },
+
+		name: { 
+			type: String, 
+			required: [true, "Name is required"],
+		 },
+
+		password: { 
+			type: String,
+		 },
+
+		profileimg: { 
+			type: String , 
+			default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5p57WV50h3MZCCDT1mT4anit4OodyaISlcQ&usqp=CAU"
+		},
+
+		qualification: {
+			type: String, 
+			required: true 
+		},
+
+		experience: {
+			type: String, 
+			required: true 
+		},
+
+		domain: {
+			type: String, 
+			required: true 
+		},
 
 		coursescreated:[{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "CourseData"
 		}],
+
 		followers: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "StudentData"

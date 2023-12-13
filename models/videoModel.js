@@ -7,28 +7,34 @@ const Video = mongoose.Schema(
     {
         videotitle: {
             type: String,
-            required: true
+            required: true,
         },
+
         instructor: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "InstructorData"
         },
+
         videodescription: {
             type: String,
-            required: true
+            required: true,
         },
+
         videoUrl: {
             type: String,
             required: true
         },
+
         videoLikes: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "StudentData"
         }],
+
         videoCourse: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'CourseData'
         },
+
         cloudinary_id: String,
     }, { timestamps: true }
 )

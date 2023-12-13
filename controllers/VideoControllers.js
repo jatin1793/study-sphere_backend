@@ -83,3 +83,49 @@ exports.getVideodetails = async (req, res) => {
         res.json(err)
     }
 }
+
+exports.CheckIfLiked = async (req, res) => {
+    try {
+        const { videoid } = req.params;
+        const video = await Video.findById(videoid);
+        if (!video.videoLikes.includes(req.user)) {
+            res.json({ isLiked: true })
+        }
+        else {
+            res.json({ isLiked: false })
+        }
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
+
+exports.Like = async (req, res) => {
+    try {
+        const { videoid } = req.params;
+        const video = await Video.findById(videoid);
+        const student = await Student.findById(req.user);
+
+        if (!video.videoLikes.includes(req.user)) {
+            video.videoLikes.push(req.user)
+            student.likedvideos.push(videoid)
+            await student.save()
+            await video.save()
+            res.json({ isLiked: true })
+        }
+        else {
+            const videoIndex = student.likedvideos.indexOf(videoid);
+            const studentIndex = video.videoLikes.indexOf(req.user);
+            if (videoIndex !== -1 && studentIndex !== -1) {
+                student.likedvideos.splice(videoIndex, 1);
+                video.videoLikes.splice(studentIndex, 1);
+                await student.save();
+                await video.save();
+                res.json({ isLiked: false });
+            }
+        }
+    }
+    catch (err) {
+        res.json(err)
+    }
+}

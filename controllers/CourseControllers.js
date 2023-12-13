@@ -17,8 +17,6 @@ exports.createCourse = async (req, res) => {
                     return res.status(500).json(err);
                 }
                 }
-                // student.profileimg = result.secure_url;
-                // student.save();
                 
                 const course = new Course({
                     courseTitle,
@@ -51,12 +49,8 @@ exports.deleteCourse = async (req, res) => {
         const instructor = Instructor.findById(req.user);
         instructor.coursescreated.pull(req.params.courseid);
         await instructor.save();
-        // await Student.updateMany({: req.params.courseid }, { $unset: { courseId: 1 } });
-
-        console.log(req.params.courseid)
         const course =await Course.findOneAndDelete ({_id: req.params.courseid})
         course.save();
-        
         res.json({message : "course deleted"})
     }catch(err){
         res.json(err)
@@ -68,3 +62,4 @@ exports.showCoursedetails = async (req, res) => {
     const course = await Course.findById(id).populate("Instructor").populate("courseVideos")
     res.json(course)
 }
+
