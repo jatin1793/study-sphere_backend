@@ -11,7 +11,7 @@ const upload = require('../middleware/multer.js');
 // Instructor     -->      /instructor/      
 app.post('/register', InstructorRegister);
 app.post('/login', InstructorLogin)
-app.post('/update', UpdateProfile)
+app.post('/update', instructor_authenticateJWT,UpdateProfile)
 app.post('/logout', instructor_authenticateJWT, InstructorLogout)
 app.post('/details', instructor_authenticateJWT, Instructordetails)
 

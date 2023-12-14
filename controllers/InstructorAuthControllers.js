@@ -94,11 +94,29 @@ exports.Mycourses = async (req, res) => {
 }
 
 exports.UpdateProfile = async (req,res)=>{
-    const {username}=req.body;
-    const instructor =Instructor.findOneAndUpdate({_id:req.user},{name:username});
-    await instructor.save()
+    const {username,phone,qualification,experiance}=req.body;
+    
+
+try {
+    const instructor = await Instructor.findOneAndUpdate(
+        { _id: req.user },
+        {
+            $set: {
+                name: username,
+                phone: phone,
+                qualification: qualification,
+                experience: experiance
+            }
+        }
+    );
+    console.log(req.user)
     res.json(instructor);
+} catch (error) {
+    console.error('Error updating instructor:', error);
 }
+
+}
+
 
 exports.showCoursedetails = async (req, res) => {
     const { id } = req.params;
