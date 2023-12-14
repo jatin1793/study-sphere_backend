@@ -12,11 +12,11 @@ const secret = process.env.JWT_SECRET;
 exports.InstructorRegister = async (req, res) => {
     const { phone, email, name, password, qualification, experience, domain } = req.body;
     try {
-        const ifexists = await Instructor.findOne({email});
-        if(ifexists){
-            res.json({ alreadyExists: true})
+        const ifexists = await Instructor.findOne({ email });
+        if (ifexists) {
+            res.json({ alreadyExists: true })
         }
-        else{
+        else {
             const user = await Instructor.create({
                 token: "",
                 phone,
@@ -30,7 +30,6 @@ exports.InstructorRegister = async (req, res) => {
             const instructor_token = jwt.sign({ userId: user._id }, secret)
             user.token = instructor_token;
             await user.save();
-            res.status(201).json({ token: user.token })
         }
     }
     catch (error) {
@@ -53,8 +52,8 @@ exports.InstructorLogin = async (req, res) => {
                 Instructor.findOneAndUpdate({ email: user.email }, { instructor_token })
                     .then(() => { })
                     .catch((err) => { console.log(err) })
-                
-                res.json({ InstructorExists: true, passCheck: true, instructor_token, user})
+
+                res.json({ InstructorExists: true, passCheck: true, instructor_token, user })
             } else {
                 res.json({ InstructorExists: true, passCheck: false });
             }
@@ -82,20 +81,20 @@ exports.Instructordetails = async (req, res) => {
 
 exports.Mycourses = async (req, res) => {
     const instructor = await Instructor.findById(req.user)
-    .populate({
-        path: 'coursescreated',
-        populate: {
-          path: 'courseVideos',
-          model: 'VideoData', 
-        },
-      })
+        .populate({
+            path: 'coursescreated',
+            populate: {
+                path: 'courseVideos',
+                model: 'VideoData',
+            },
+        })
 
-  res.json(instructor);
+    res.json(instructor);
 }
 
-exports.UpdateProfile = async (req,res)=>{
-    const {username}=req.body;
-    const instructor =Instructor.findOneAndUpdate({_id:req.user},{name:username});
+exports.UpdateProfile = async (req, res) => {
+    const { username } = req.body;
+    const instructor = Instructor.findOneAndUpdate({ _id: req.user }, { name: username });
     await instructor.save()
     res.json(instructor);
 }
