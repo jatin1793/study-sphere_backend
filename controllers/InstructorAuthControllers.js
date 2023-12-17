@@ -92,7 +92,7 @@ exports.Mycourses = async (req, res) => {
     res.json(instructor);
 }
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 exports.UpdateProfile = async (req,res)=>{
     const {username,phone,qualification,experiance}=req.body;
     
@@ -110,18 +110,12 @@ try {
         }
     );
     console.log(req.user)
-=======
-exports.UpdateProfile = async (req, res) => {
-    const { username } = req.body;
-    const instructor = Instructor.findOneAndUpdate({ _id: req.user }, { name: username });
-    await instructor.save()
->>>>>>> 2c695e31c6156606afb7607d81eca009985bd669
-    res.json(instructor);
-} catch (error) {
-    console.error('Error updating instructor:', error);
-}
 
-}
+ }catch (error) {
+    console.error('Error updating instructor:', error);
+}}
+
+
 
 
 exports.showCoursedetails = async (req, res) => {

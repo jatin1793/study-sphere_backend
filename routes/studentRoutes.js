@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router();
-const { StudentRegister, StudentLogin , StudentLogout ,StudentDetails ,CheckIfEnrolled , JoinCourse, UnjoinCourse, StudentHome, Follow,  StudentProfileimg } = require('../controllers/StudentAuthControllers.js');
+const { StudentRegister, StudentLogin ,UpdateProfileStudent, StudentLogout ,StudentDetails ,CheckIfEnrolled , JoinCourse, UnjoinCourse, StudentHome, Follow,  StudentProfileimg } = require('../controllers/StudentAuthControllers.js');
 
 const { CheckIfLiked, Like } = require('../controllers/VideoControllers.js')
 
@@ -23,6 +23,7 @@ app.post('/joincourse/:courseid', student_authenticateJWT ,JoinCourse )
 
 app.post('/checkifenrolled/:courseid', student_authenticateJWT ,CheckIfEnrolled )
 
+app.post('/updateprofile',student_authenticateJWT,UpdateProfileStudent)
 
 app.post('/home', student_authenticateJWT ,StudentHome )
 

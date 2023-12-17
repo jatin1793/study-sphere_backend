@@ -219,4 +219,22 @@ exports.StudentProfileimg = async (req, res) => {
 
 }
 
-
+exports.UpdateProfileStudent = async(req,res)=>{
+    const {name,phone,qualification,institution,course}=req.body
+    try{
+        
+        var updated = await Student.findByIdAndUpdate(req.user,{
+            $set:{
+                name:name,
+                phone:phone,
+                qualification:qualification,
+                
+                institution:institution,
+                course:course
+            }
+        })
+        res.status(200).json(updated);
+    }catch(err){
+        res.status(500).json(err);
+    }
+}
