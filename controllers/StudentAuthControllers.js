@@ -68,7 +68,7 @@ exports.StudentLogout = async (req, res) => {
 
 exports.StudentDetails = async (req, res) => {
     try {
-        var student = await Student.findById(req.user).populate('joinedcourses')
+        var student = await Student.findById(req.user).populate('joinedcourses').populate('likedvideos')
         res.json(student)
     }
     catch (err) {
@@ -133,8 +133,6 @@ exports.DeleteAccount = async (req, res) => {
         res.json(err)
     }
 }
-
-
 
 exports.StudentHome = async (req, res) => {
     try {
@@ -216,7 +214,6 @@ exports.StudentProfileimg = async (req, res) => {
     catch (err) {
         res.json(err)
     }
-
 }
 
 exports.UpdateProfileStudent = async(req,res)=>{

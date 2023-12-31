@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router();
-const { InstructorRegister, InstructorLogin,InstructorLogout, Instructordetails , Mycourses,UpdateProfile, showCoursedetails} = require('../controllers/InstructorAuthControllers.js');
+const { InstructorRegister, InstructorLogin,InstructorLogout, Instructordetails , Mycourses,UpdateProfile, InstructorProfileimg, showCoursedetails} = require('../controllers/InstructorAuthControllers.js');
 const { createCourse, AllCourses , deleteCourse} = require("../controllers/CourseControllers.js")
 const { AllVideos, DeleteVideo, uploadVideo ,getVideodetails} = require("../controllers/VideoControllers.js")
 
@@ -12,6 +12,7 @@ const upload = require('../middleware/multer.js');
 app.post('/register', InstructorRegister);
 app.post('/login', InstructorLogin)
 app.post('/update', instructor_authenticateJWT,UpdateProfile)
+app.post('/profileimg', instructor_authenticateJWT, upload.single('file'), InstructorProfileimg)
 app.post('/logout', instructor_authenticateJWT, InstructorLogout)
 app.post('/details', instructor_authenticateJWT, Instructordetails)
 

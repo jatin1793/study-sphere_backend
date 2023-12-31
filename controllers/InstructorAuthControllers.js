@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
 const Course = require("../models/courseModel.js")
 const { findOneAndUpdate } = require('../models/studentModel');
+const cloudinary = require("cloudinary").v2
 
 
 var salt = bcrypt.genSaltSync(10);
@@ -92,7 +93,6 @@ exports.Mycourses = async (req, res) => {
     res.json(instructor);
 }
 
-// <<<<<<< HEAD
 exports.UpdateProfile = async (req,res)=>{
     const {username,phone,qualification,experiance}=req.body;
     
@@ -110,12 +110,31 @@ try {
         }
     );
     console.log(req.user)
-
- }catch (error) {
+    res.json(instructor);
+} catch (error) {
     console.error('Error updating instructor:', error);
 }}
 
-
+exports.InstructorProfileimg = async (req, res) => {
+    try {
+        var instructor = await Instructor.findById(req.user);
+        console.log(req.file.path);
+        cloudinary.uploader.upload(req.file.path, (err, result) => {
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json(err);
+                }
+            }
+            instructor.profileimg = result.secure_url;
+            instructor.save();
+            res.json(instructor)
+        })   
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
 
 
 exports.showCoursedetails = async (req, res) => {
