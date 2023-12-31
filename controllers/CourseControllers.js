@@ -46,11 +46,9 @@ exports.AllCourses = async (req, res) => {
 
 exports.deleteCourse = async (req, res) => {
     try {
-        const instructor = Instructor.findById(req.user);
-        instructor.coursescreated.pull(req.params.courseid);
-        await instructor.save();
+        
         const course = await Course.findOneAndDelete({ _id: req.params.courseid })
-        course.save();
+        
         res.json({ message: "course deleted" })
     } catch (err) {
         res.json(err)

@@ -68,7 +68,8 @@ exports.StudentLogout = async (req, res) => {
 
 exports.StudentDetails = async (req, res) => {
     try {
-        var student = await Student.findById(req.user).populate('joinedcourses').populate('likedvideos')
+        var student = await Student.findById(req.user).populate('joinedcourses').populate({path:'likedvideos',populate:[
+            {path:'videoCourse'},{path:'instructor'}]})
         res.json(student)
     }
     catch (err) {
