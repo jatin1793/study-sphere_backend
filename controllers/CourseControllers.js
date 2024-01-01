@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Course = require('../models/courseModel');
 const Instructor = require('../models/instructorModel');
 const Student = require('../models/studentModel');
+const Video = require('../models/videoModel')
 const cloudinary = require('../middleware/cloudinary');
 
 
@@ -47,8 +48,11 @@ exports.AllCourses = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
     try {
         
-        const course = await Course.findOneAndDelete({ _id: req.params.courseid })
-        
+        const course = await Course.findOne({ _id: req.params.courseid })
+        course.courseVideos.forEach(async (item) =>{
+            const video = await Video.findOneAndDelete({_id:item})
+        })
+        await Course.findByIdAndDelete({ _id: req.params.courseid })
         res.json({ message: "course deleted" })
     } catch (err) {
         res.json(err)
