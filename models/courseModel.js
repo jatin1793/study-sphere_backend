@@ -11,7 +11,6 @@ const Course = new mongoose.Schema(
 
         courseDomain: { 
             type: String, 
-            required: true,
         },
 
         courseVideos: [{
@@ -26,7 +25,6 @@ const Course = new mongoose.Schema(
 
         courseDescription:{
             type:String,
-            required:true,
         },
 
         enrolledStudents: { 

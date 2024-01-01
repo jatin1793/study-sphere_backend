@@ -17,7 +17,6 @@ const Video = mongoose.Schema(
 
         videodescription: {
             type: String,
-            required: true,
         },
 
         videoUrl: {

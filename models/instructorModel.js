@@ -31,7 +31,7 @@ const Instructor = new mongoose.Schema(
 
 		profileimg: { 
 			type: String , 
-			default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5p57WV50h3MZCCDT1mT4anit4OodyaISlcQ&usqp=CAU"
+			default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_RlT-ytB9A_TQFLKMqVYpdJiiRbckTCThmw&usqp=CAU"
 		},
 
 		qualification: {
