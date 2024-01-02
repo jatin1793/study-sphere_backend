@@ -31,6 +31,7 @@ exports.InstructorRegister = async (req, res) => {
             const instructor_token = jwt.sign({ userId: user._id }, secret)
             user.token = instructor_token;
             await user.save();
+            res.status(201).json({ instructor_token, user })
         }
     }
     catch (error) {
