@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
-const Student = require('../models/studentModel');
 const bcrypt = require("bcryptjs")
-const Course = require('../models/courseModel')
 const jwt = require('jsonwebtoken');
-const Instructor = require('../models/instructorModel')
 const cookie = require('cookie-parser');
 const cloudinary = require("cloudinary").v2
+const Student = require('../models/studentModel.js');
+const Course = require('../models/courseModel.js')
+const Instructor = require('../models/instructorModel.js')
 require("dotenv").config();
 
 var salt = bcrypt.genSaltSync(10);
@@ -68,8 +68,14 @@ exports.StudentLogout = async (req, res) => {
 
 exports.StudentDetails = async (req, res) => {
     try {
-        var student = await Student.findById(req.user).populate('joinedcourses').populate({path:'likedvideos',populate:[
-            {path:'videoCourse'},{path:'instructor'}]})
+        var student = await Student.findById(req.user)
+            .populate('joinedcourses')
+            .populate({
+                path: 'likedvideos', 
+                populate: [
+                    { path: 'videoCourse' }, { path: 'instructor' }
+                ]
+            })
         res.json(student)
     }
     catch (err) {
@@ -105,7 +111,6 @@ exports.JoinCourse = async (req, res) => {
             student.joinedcourses.push(courseid)
             await student.save()
             await course.save()
-            console.log("true")
             res.json({ isEnrolled: false })
         }
         else {
@@ -128,7 +133,7 @@ exports.JoinCourse = async (req, res) => {
 exports.DeleteAccount = async (req, res) => {
     try {
         const instructor = await Student.findByIdAndDelete(req.user);
-        res.json({message:"Success"})
+        res.json({ message: "Success" })
     }
     catch (err) {
         res.json(err)
@@ -217,22 +222,21 @@ exports.StudentProfileimg = async (req, res) => {
     }
 }
 
-exports.UpdateProfileStudent = async(req,res)=>{
-    const {name,phone,qualification,institution,course}=req.body
-    try{
-        
-        var updated = await Student.findByIdAndUpdate(req.user,{
-            $set:{
-                name:name,
-                phone:phone,
-                qualification:qualification,
-                
-                institution:institution,
-                course:course
+exports.UpdateProfileStudent = async (req, res) => {
+    const { name, phone, qualification, institution, course } = req.body
+    try {
+
+        var updated = await Student.findByIdAndUpdate(req.user, {
+            $set: {
+                name: name,
+                phone: phone,
+                qualification: qualification,
+                institution: institution,
+                course: course
             }
         })
         res.status(200).json(updated);
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err);
     }
 }

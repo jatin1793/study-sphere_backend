@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const Instructor = require('./instructorModel')
-const Student = require('./studentModel')
+const Instructor = require('./instructorModel.js')
+const Student = require('./studentModel.js')
 const Course = require("./courseModel.js")
 
 const Video = mongoose.Schema(

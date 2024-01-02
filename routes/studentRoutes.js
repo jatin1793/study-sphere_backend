@@ -40,6 +40,4 @@ app.get('/video/checklike/:videoid', student_authenticateJWT , CheckIfLiked)
 app.post('/video/like/:videoid', student_authenticateJWT , Like)
 
 
-
-
 module.exports = app;

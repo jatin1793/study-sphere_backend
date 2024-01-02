@@ -1,11 +1,10 @@
 const mongoose = require('mongoose')
-const Instructor = require('../models/instructorModel');
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
-const Course = require("../models/courseModel.js")
-const { findOneAndUpdate } = require('../models/studentModel');
 const cloudinary = require("cloudinary").v2
-
+const Instructor = require('../models/instructorModel.js');
+const Course = require("../models/courseModel.js")
+const { findOneAndUpdate } = require('../models/studentModel.js');
 
 var salt = bcrypt.genSaltSync(10);
 const secret = process.env.JWT_SECRET;
@@ -94,27 +93,26 @@ exports.Mycourses = async (req, res) => {
     res.json(instructor);
 }
 
-exports.UpdateProfile = async (req,res)=>{
-    const {username,phone,qualification,experiance}=req.body;
-    
-
-try {
-    const instructor = await Instructor.findOneAndUpdate(
-        { _id: req.user },
-        {
-            $set: {
-                name: username,
-                phone: phone,
-                qualification: qualification,
-                experience: experiance
+exports.UpdateProfile = async (req, res) => {
+    const { username, phone, qualification, experiance } = req.body;
+    try {
+        const instructor = await Instructor.findOneAndUpdate(
+            { _id: req.user },
+            {
+                $set: {
+                    name: username,
+                    phone: phone,
+                    qualification: qualification,
+                    experience: experiance
+                }
             }
-        }
-    );
-    console.log(req.user)
-    res.json(instructor);
-} catch (error) {
-    console.error('Error updating instructor:', error);
-}}
+        );
+        console.log(req.user)
+        res.json(instructor);
+    } catch (error) {
+        console.error('Error updating instructor:', error);
+    }
+}
 
 exports.InstructorProfileimg = async (req, res) => {
     try {
@@ -130,13 +128,12 @@ exports.InstructorProfileimg = async (req, res) => {
             instructor.profileimg = result.secure_url;
             instructor.save();
             res.json(instructor)
-        })   
+        })
     }
     catch (err) {
         res.json(err)
     }
 }
-
 
 exports.showCoursedetails = async (req, res) => {
     const { id } = req.params;

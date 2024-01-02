@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const Course = require('../models/courseModel');
-const Instructor = require('../models/instructorModel');
-const Student = require('../models/studentModel');
-const Video = require('../models/videoModel')
-const cloudinary = require('../middleware/cloudinary');
-
+const Course = require('../models/courseModel.js');
+const Instructor = require('../models/instructorModel.js');
+const Student = require('../models/studentModel.js');
+const Video = require('../models/videoModel.js')
+const cloudinary = require('../middleware/cloudinary.js');
 
 exports.createCourse = async (req, res) => {
     try {

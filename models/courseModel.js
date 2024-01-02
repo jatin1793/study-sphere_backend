@@ -4,13 +4,13 @@ const Video = require("./videoModel.js")
 
 const Course = new mongoose.Schema(
     {
-        courseTitle: { 
-            type: String, 
+        courseTitle: {
+            type: String,
             required: true,
         },
 
-        courseDomain: { 
-            type: String, 
+        courseDomain: {
+            type: String,
         },
 
         courseVideos: [{
@@ -18,30 +18,30 @@ const Course = new mongoose.Schema(
             ref: 'VideoData'
         }],
 
-        coursePoster:{
-            type:String,
-            required:true
+        coursePoster: {
+            type: String,
+            required: true
         },
 
-        courseDescription:{
-            type:String,
+        courseDescription: {
+            type: String,
         },
 
-        enrolledStudents: { 
-            type: Array, 
-            default: [] 
+        enrolledStudents: {
+            type: Array,
+            default: []
         },
 
-        Instructor: { 
-            type: mongoose.Types.ObjectId, 
-            ref: "InstructorData" 
+        Instructor: {
+            type: mongoose.Types.ObjectId,
+            ref: "InstructorData"
         },
 
-        courseDate: { 
-            type: Date, 
-            default: Date.now() 
+        courseDate: {
+            type: Date,
+            default: Date.now()
         },
-    },  
+    },
 )
 
 module.exports = mongoose.model('CourseData', Course);
